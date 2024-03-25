@@ -26,12 +26,12 @@
                 <a href="javascript:;" class="has-arrow">
                     <div class="parent-icon"><i class="material-icons-outlined">home</i>
                     </div>
-                    <div class="menu-title">Dashboard</div>
+                    <div class="menu-title">User</div>
                 </a>
                 <ul>
-                    <li><a href="index.html"><i class="material-icons-outlined">arrow_right</i>eCommerce</a>
+                    <li><a href="{{route('dosen-skripsi.index')}}"><i class="material-icons-outlined">arrow_right</i>Dosen</a>
                     </li>
-                    <li><a href="index2.html"><i class="material-icons-outlined">arrow_right</i>Alternate</a>
+                    <li><a href="index2.html"><i class="material-icons-outlined">arrow_right</i>Mahasiswa</a>
                     </li>
                 </ul>
             </li>
