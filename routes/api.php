@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DosenSkripsiController;
 use App\Http\Controllers\ProfileDosenController;
+use App\Http\Controllers\Api\ApiAuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,3 +23,6 @@ use App\Http\Controllers\ProfileDosenController;
 
 Route::resource('/dosen-skripsi', DosenSkripsiController::class);
 Route::resource('/dosen', ProfileDosenController::class);
+
+Route::get('/login', [ApiAuthController::class, 'login'])->name('login');
+Route::post('/login', [ApiAuthController::class, 'inLogin'])->name('inLogin');

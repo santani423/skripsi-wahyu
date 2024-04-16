@@ -9,6 +9,6 @@ class HomeController extends Controller
 {
     function index()
     {
-
+        return view('pages.dosen.index');
     }
 }

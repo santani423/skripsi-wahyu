@@ -29,4 +29,15 @@ class AuthController extends Controller
             'error' => 'Email atau password anda salah',
         ]);
     }
+
+    function inLogout(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect(route('login'));
+    }
 }

@@ -23,7 +23,10 @@ Route::get('/', function () {
 
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'inLogin'])->name('inLogin');
+Route::get('/Logout', [AuthController::class, 'inLogout'])->name('inLogout');
 
-Route::resource('/dosen-skripsi', DosenSkripsiController::class);
-Route::resource('/home', HomeController::class);
 
+Route::group(['middleware' => ['auth']], function () {
+    Route::resource('/dosen-skripsi', DosenSkripsiController::class);
+    Route::resource('/home', HomeController::class);
+});
