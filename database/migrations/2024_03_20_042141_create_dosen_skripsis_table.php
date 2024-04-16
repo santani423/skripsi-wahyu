@@ -14,7 +14,6 @@ return new class extends Migration {
             $table->id();
             $table->integer('profile_dosen_id');
             $table->integer('skripsi_id');
-            $table->string('nama');
             $table->string('status')->nullable();
             $table->timestamps();
         });

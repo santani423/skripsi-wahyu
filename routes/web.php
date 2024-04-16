@@ -22,4 +22,8 @@ Route::get('/', function () {
 });
 
 Route::get('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/login', [AuthController::class, 'inLogin'])->name('inLogin');
+
 Route::resource('/dosen-skripsi', DosenSkripsiController::class);
+Route::resource('/home', HomeController::class);
+

@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\ProfileDosen;
+use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class ProfileDosenController extends Controller
 {
@@ -29,7 +32,47 @@ class ProfileDosenController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validasi input
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|string|min:6',
+            'id_api' => 'required|string',
+            'nama' => 'required|string',
+        ]);
+
+        if ($validator->fails()) {
+            // Jika validasi gagal, kembalikan pesan kesalahan dalam bentuk JSON
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        try {
+            // Simpan data ke dalam tabel users
+            $user = new User();
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = Hash::make($request->password); // Pastikan untuk mengenkripsi password
+            $user->save();
+
+            // Simpan data ke dalam tabel profile_dosens
+            $profileDosen = new ProfileDosen();
+            $profileDosen->user_id = $user->id;
+            $profileDosen->id_api = $request->id_api;
+            $profileDosen->nama = $request->nama;
+            $profileDosen->save();
+
+
+
+
+            // Kembalikan respons berhasil
+            return response()->json(['message' => 'Data berhasil disimpan'], 201);
+        } catch (\Exception $e) {
+            // Rollback transaksi database jika terjadi kesalahan
+
+
+            // Kembalikan respons gagal dengan pesan kesalahan
+            return response()->json(['message' => 'Terjadi kesalahan saat menyimpan data'], 500);
+        }
     }
 
     /**

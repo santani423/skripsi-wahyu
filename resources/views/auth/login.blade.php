@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Home | Bootstrap demo</title>
+    <title>Login</title>
     <!--favicon-->
     <link rel="icon" href="{{asset('assets/images/favicon-32x32.png')}}" type="image/png">
 
@@ -37,19 +37,19 @@
 
 
                         <div class="form-body my-4">
-                            <form class="row g-3">
+                            <form action="{{route('inLogin')}}" method="POST"  class="row g-3">
+                            @csrf
                                 <div class="col-12">
                                     <label for="inputEmailAddress" class="form-label">Email</label>
-                                    <input type="email" class="form-control" id="inputEmailAddress"
-                                        placeholder="jhon@example.com">
+                                    <input type="email" name="email" class="form-control"  
+                                         >
                                 </div>
                                 <div class="col-12">
                                     <label for="inputChoosePassword" class="form-label">Password</label>
                                     <div class="input-group" id="show_hide_password">
-                                        <input type="password" class="form-control border-end-0"
-                                            id="inputChoosePassword" value="12345678" placeholder="Enter Password">
-                                        <a href="javascript:;" class="input-group-text bg-transparent"><i
-                                                class="bi bi-eye-slash-fill"></i></a>
+                                        <input type="password" name="password" class="form-control border-end-0"
+                                                placeholder="Enter Password">
+                                         
                                     </div>
                                 </div>
 

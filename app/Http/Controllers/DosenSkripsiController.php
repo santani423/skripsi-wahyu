@@ -34,7 +34,6 @@ class DosenSkripsiController extends Controller
         $request->validate([
             'profile_dosen_id' => 'required|integer',
             'skripsi_id' => 'required|integer',
-            'nama' => 'required|string',
         ]);
 
         // Buat instance baru dari model DosenSkripsi
@@ -44,7 +43,6 @@ class DosenSkripsiController extends Controller
         $dosenSkripsi->profile_dosen_id = $request->profile_dosen_id;
         $dosenSkripsi->skripsi_id = $request->skripsi_id;
         $dosenSkripsi->status = $request->status;
-        $dosenSkripsi->nama = $request->nama;
 
         // Simpan data ke dalam basis data
         $dosenSkripsi->save();

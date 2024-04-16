@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DosenSkripsiController;
+use App\Http\Controllers\ProfileDosenController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +21,4 @@ use App\Http\Controllers\DosenSkripsiController;
 // });`
 
 Route::resource('/dosen-skripsi', DosenSkripsiController::class);
+Route::resource('/dosen', ProfileDosenController::class);
