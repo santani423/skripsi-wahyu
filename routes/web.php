@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DosenSkripsiController;
 use App\Http\Controllers\ProfileDosenController;
+use App\Http\Controllers\ProfileMahasiswaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,4 +34,5 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('/dosen-skripsi', DosenSkripsiController::class);
     Route::resource('/profile-skripsi', ProfileDosenController::class);
     Route::resource('/home', HomeController::class);
+    Route::resource('/mahasiswa', ProfileMahasiswaController::class);
 });

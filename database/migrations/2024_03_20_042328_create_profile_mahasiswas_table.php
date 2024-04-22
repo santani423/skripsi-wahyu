@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->integer('user_id');
             $table->string('id_api');
             $table->string('keterangan');
+            $table->string('nama');
             $table->timestamps();
         });
     }

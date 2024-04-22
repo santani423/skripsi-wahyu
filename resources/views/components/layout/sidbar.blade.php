@@ -31,7 +31,7 @@
                 <ul>
                     <li><a href="{{route('dosen-skripsi.index')}}"><i class="material-icons-outlined">arrow_right</i>Dosen</a>
                     </li>
-                    <li><a href="index2.html"><i class="material-icons-outlined">arrow_right</i>Mahasiswa</a>
+                    <li><a href="{{route('mahasiswa.index')}}"><i class="material-icons-outlined">arrow_right</i>Mahasiswa</a>
                     </li>
                 </ul>
             </li>

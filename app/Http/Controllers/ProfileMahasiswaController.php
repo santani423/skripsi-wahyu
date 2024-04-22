@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\ProfileMahasiswa;
+use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class ProfileMahasiswaController extends Controller
 {
@@ -13,7 +15,7 @@ class ProfileMahasiswaController extends Controller
      */
     public function index()
     {
-        //
+        return view("pages.mahasiswa.index");
     }
 
     /**
@@ -21,7 +23,7 @@ class ProfileMahasiswaController extends Controller
      */
     public function create()
     {
-        //
+        return view("pages.mahasiswa.create");
     }
 
     /**
@@ -29,7 +31,36 @@ class ProfileMahasiswaController extends Controller
      */
     public function store(Request $request)
     {
+        try {
+            // Simpan data ke dalam tabel users
+            $user = new User();
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = Hash::make($request->email); // Pastikan untuk mengenkripsi password
+            $user->save();
 
+            // Simpan data ke dalam tabel profile_dosens
+            $ProfileMahasiswa = new ProfileMahasiswa();
+            $ProfileMahasiswa->user_id = $user->id;
+            $ProfileMahasiswa->id_api = $request->profile_mahasiswa_id;
+            $ProfileMahasiswa->keterangan = 'mahasiswa';
+            $ProfileMahasiswa->nama = $request->name;
+            $ProfileMahasiswa->save();
+            $user = new User();
+
+
+
+
+            return redirect()->route('mahasiswa.index')->with('success', 'Dosen Berhasil Di Simpan');
+            // Kembalikan respons berhasil
+            return response()->json(['message' => 'Data berhasil disimpan'], 201);
+        } catch (\Exception $e) {
+            // Rollback transaksi database jika terjadi kesalahan
+            return back();
+
+            // Kembalikan respons gagal dengan pesan kesalahan
+            return response()->json(['message' => 'Terjadi kesalahan saat menyimpan data'], 500);
+        }
     }
 
     /**
