@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class ProfileDosen extends Model
 {
     use HasFactory;
+    protected $guarded = [];
 }

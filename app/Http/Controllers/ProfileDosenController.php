@@ -32,43 +32,46 @@ class ProfileDosenController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request);
         // Validasi input
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|string|min:6',
-            'id_api' => 'required|string',
-            'nama' => 'required|string',
-        ]);
+        // $validator = Validator::make($request->all(), [
+        //     'name' => 'required|string',
+        //     'email' => 'required|email|unique:users',
+        //     'password' => 'required|string|min:6',
+        //     'id_api' => 'required|string',
+        //     'nama' => 'required|string',
+        // ]);
 
-        if ($validator->fails()) {
-            // Jika validasi gagal, kembalikan pesan kesalahan dalam bentuk JSON
-            return response()->json(['errors' => $validator->errors()], 422);
-        }
+        // if ($validator->fails()) {
+        //     // Jika validasi gagal, kembalikan pesan kesalahan dalam bentuk JSON
+        //     return response()->json(['errors' => $validator->errors()], 422);
+        // }
 
         try {
             // Simpan data ke dalam tabel users
             $user = new User();
             $user->name = $request->name;
             $user->email = $request->email;
-            $user->password = Hash::make($request->password); // Pastikan untuk mengenkripsi password
+            $user->password = Hash::make($request->email); // Pastikan untuk mengenkripsi password
             $user->save();
 
             // Simpan data ke dalam tabel profile_dosens
             $profileDosen = new ProfileDosen();
             $profileDosen->user_id = $user->id;
-            $profileDosen->id_api = $request->id_api;
-            $profileDosen->nama = $request->nama;
+            $profileDosen->id_api = $request->profile_dosen_id;
+            $profileDosen->nama = $request->name;
             $profileDosen->save();
+            $user = new User();
 
 
 
 
+            return redirect()->route('dosen-skripsi.index')->with('success', 'Dosen Berhasil Di Simpan');
             // Kembalikan respons berhasil
             return response()->json(['message' => 'Data berhasil disimpan'], 201);
         } catch (\Exception $e) {
             // Rollback transaksi database jika terjadi kesalahan
-
+            return back();
 
             // Kembalikan respons gagal dengan pesan kesalahan
             return response()->json(['message' => 'Terjadi kesalahan saat menyimpan data'], 500);

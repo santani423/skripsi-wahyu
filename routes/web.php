@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DosenSkripsiController;
+use App\Http\Controllers\ProfileDosenController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,5 +31,6 @@ Route::get('/Logout', [AuthController::class, 'inLogout'])->name('inLogout');
 
 Route::group(['middleware' => ['auth']], function () {
     Route::resource('/dosen-skripsi', DosenSkripsiController::class);
+    Route::resource('/profile-skripsi', ProfileDosenController::class);
     Route::resource('/home', HomeController::class);
 });

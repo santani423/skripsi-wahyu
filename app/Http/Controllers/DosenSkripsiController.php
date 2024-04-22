@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\DosenSkripsi;
+use App\Models\ProfileDosen;
+use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -13,7 +15,9 @@ class DosenSkripsiController extends Controller
      */
     public function index()
     {
-        return view('pages.dosen.index');
+
+        $data = ProfileDosen::orderBy("created_at", "desc")->paginate(10);
+        return view('pages.dosen.index', compact('data'));
     }
 
     /**
@@ -21,7 +25,7 @@ class DosenSkripsiController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.dosen.create');
     }
 
     /**
@@ -30,22 +34,21 @@ class DosenSkripsiController extends Controller
     public function store(Request $request)
     {
 
-        // Validasi input
-        $request->validate([
-            'profile_dosen_id' => 'required|integer',
-            'skripsi_id' => 'required|integer',
-        ]);
 
-        // Buat instance baru dari model DosenSkripsi
-        $dosenSkripsi = new DosenSkripsi();
+        $user = new User();
 
-        // Isi atribut dari model dengan data dari request
-        $dosenSkripsi->profile_dosen_id = $request->profile_dosen_id;
-        $dosenSkripsi->skripsi_id = $request->skripsi_id;
-        $dosenSkripsi->status = $request->status;
+        $user->name = $request->namaDosen;
+        $user->email = $request->emailDosen;
+        $user->password = bcrypt($request->emailDosen);
+        $user->save();
 
-        // Simpan data ke dalam basis data
-        $dosenSkripsi->save();
+        $ProfileDosen = new ProfileDosen();
+        $ProfileDosen->nama = $request->namaDosen;
+        $ProfileDosen->id_api = $request->profile_dosen_id;
+        $ProfileDosen->user_id = $user->id;
+        $ProfileDosen->save();
+
+
 
         // Kembalikan respons berhasil
         return response()->json(['message' => 'Dosen Skripsi berhasil disimpan'], 201);
