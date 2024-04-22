@@ -41,17 +41,11 @@
                 <a href="javascript:;" class="has-arrow">
                     <div class="parent-icon"><i class="material-icons-outlined">inventory_2</i>
                     </div>
-                    <div class="menu-title">Cards</div>
+                    <div class="menu-title">Master Data</div>
                 </a>
                 <ul>
-                    <li><a href="component-cards-basic.html"><i class="material-icons-outlined">arrow_right</i>Basic</a>
-                    </li>
-                    <li><a href="component-cards-advance.html"><i
-                                class="material-icons-outlined">arrow_right</i>Advance</a>
-                    </li>
-                    <li><a href="component-cards-contact.html"><i
-                                class="material-icons-outlined">arrow_right</i>Contacts</a>
-                    </li>
+                    <li><a href="{{route('periode.index')}}"><i class="material-icons-outlined">arrow_right</i>Periode</a>
+                    </li> 
                 </ul>
             </li>
         </ul>
