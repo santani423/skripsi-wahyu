@@ -16,7 +16,7 @@ class ProfileDosenController extends Controller
      */
     public function index()
     {
-        //
+
     }
 
     /**

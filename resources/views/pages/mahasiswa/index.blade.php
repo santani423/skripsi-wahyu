@@ -25,7 +25,12 @@
 										</tr>
 									</thead>
 									<tbody>
-										 
+                                    @foreach($data as $key => $ds)
+										<tr>
+											<th scope="row">{{++$key}}</th>
+											<td>{{$ds->nama}}</td> 
+										</tr>
+										@endforeach
 									</tbody>
 								</table>
 							</div>
