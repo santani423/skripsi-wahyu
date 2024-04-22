@@ -12,6 +12,12 @@ class AuthController extends Controller
     {
         return view('auth/login');
     }
+    function loginButton(Request $request)
+    {
+        $email = $request->email;
+        $password = $request->password;
+        return view('loginButton', compact('email', 'password'));
+    }
     function inLogin(Request $request)
     {
         $credentials = $request->validate([

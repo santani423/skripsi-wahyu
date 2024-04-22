@@ -25,4 +25,5 @@ Route::resource('/dosen-skripsi', DosenSkripsiController::class);
 Route::resource('/dosen', ProfileDosenController::class);
 
 Route::get('/login', [ApiAuthController::class, 'login'])->name('login');
-Route::post('/login', [ApiAuthController::class, 'inLogin'])->name('inLogin');
+Route::post('/login', [ApiAuthController::class, 'inLogin'])->name('api.inLogin');
+Route::post('/login/button', [ApiAuthController::class, 'inLoginbutton'])->name('inLoginbutton');

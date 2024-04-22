@@ -17,12 +17,14 @@ use App\Http\Controllers\DosenSkripsiController;
 |
 */
 
+
 Route::get('/', function () {
     return view('welcome');
 });
 
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'inLogin'])->name('inLogin');
+Route::get('/loginButton', [AuthController::class, 'loginButton'])->name('loginButton');
 Route::get('/Logout', [AuthController::class, 'inLogout'])->name('inLogout');
 
 
