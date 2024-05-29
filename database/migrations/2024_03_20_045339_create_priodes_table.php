@@ -17,6 +17,7 @@ return new class extends Migration {
             $table->string('tanggal_awal');
             $table->string('tanggal_akhir');
             $table->string('keterangan');
+            $table->boolean('is_active')->default(false); // Added field 'is_active'
             $table->timestamps();
         });
     }

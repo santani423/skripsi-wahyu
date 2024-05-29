@@ -7,6 +7,8 @@ use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\ProfileMahasiswa;
+use App\Models\ProfileDosen;
 
 class UserSeeder extends Seeder
 {
@@ -16,15 +18,15 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         $faker = Faker::create('id_ID');
-        for ($i = 0; $i <= 1; $i++) {
+        for ($i = 0; $i <= 100; $i++) {
             $ran = rand(100, 999);
 
             $email = fake()->unique()->safeEmail();
             if ($ran > 500) {
-                $level = 'Tendik';
+                $level = 'mahasiswa';
 
             } else {
-                $level = 'Guru';
+                $level = 'dosen';
             }
             $ran2 = rand(100, 999);
             if ($ran > 500) {
@@ -40,7 +42,10 @@ class UserSeeder extends Seeder
                 $name = $faker->name;
                 if ($i == 1) {
                     $email = 'admin@gmail.com';
-                    $level = 'Admin Utama';
+                    $level = 'adminUtama';
+                } else if ($i == 2) {
+                    $email = 'kemahasiswaan@gmail.com';
+                    $level = 'kemahasiswaan';
                 }
                 $user = User::create([
                     'name' => $name,
@@ -48,6 +53,21 @@ class UserSeeder extends Seeder
                     'level' => $level,
                     'password' => Hash::make('123')
                 ]);
+                if ($level == 'mahasiswa') {
+                    $ProfileMahasiswa = new ProfileMahasiswa();
+                    $ProfileMahasiswa->user_id = $user->id;
+                    $ProfileMahasiswa->id_api = rand(100, 999);
+                    $ProfileMahasiswa->keterangan = 'mahasiswa';
+                    $ProfileMahasiswa->nama = $name;
+                    $ProfileMahasiswa->save();
+                } else if ($level == 'dosen') {
+                    $profileDosen = new ProfileDosen();
+                    $profileDosen->user_id = $user->id;
+                    $profileDosen->id_api = rand(100, 999);
+                    $profileDosen->nama = $name;
+                    $profileDosen->save();
+                }
+
 
             }
         }

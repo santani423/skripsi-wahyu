@@ -75,13 +75,20 @@ class PriodeController extends Controller
             'tanggal_awal' => 'required|date',
             'tanggal_akhir' => 'required|date|after_or_equal:tanggal_awal',
             'keterangan' => 'nullable|string|max:255',
+            'is_active' => 'boolean',
         ]);
+
         $periode = Priode::find($id);
+
+        if ($validatedData['is_active']) {
+            Priode::where('id', '!=', $id)->update(['is_active' => false]);
+        }
+
         // Proses penyimpanan data ke database
         $periode->update($validatedData);
 
         // Redirect ke halaman yang diinginkan dengan pesan sukses
-        return redirect()->route('periode.index')->with('success', 'Periode berhasil ditambahkan.');
+        return redirect()->route('periode.index')->with('success', 'Periode berhasil diupdate.');
     }
 
     /**

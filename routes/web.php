@@ -36,5 +36,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('/profile-skripsi', ProfileDosenController::class);
     Route::resource('/home', HomeController::class);
     Route::resource('/mahasiswa', ProfileMahasiswaController::class);
+    Route::controller(ProfileMahasiswaController::class)->prefix('mahasiswa')->name('mahasiswa.')->group(function () {
+        // member
+        Route::get('/daftar/skripsi', 'daftarSkripsi')->name('daftar.skripsi');
+
+    });
     Route::resource('/periode', PriodeController::class);
 });

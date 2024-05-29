@@ -66,6 +66,20 @@
                                 @enderror
                             </div>
                         </div>
+                        <!-- Modifikasi untuk is_active -->
+                        <div class="mb-3 row">
+                            <label for="is_active" class="col-sm-2 col-form-label">Aktif</label>
+                            <div class="col-sm-10">
+                                <select class="form-select" id="is_active" name="is_active">
+                                    <option value="1" {{ old('is_active', $periode->is_active) == 1 ? 'selected' : '' }}>Aktif</option>
+                                    <option value="0" {{ old('is_active', $periode->is_active) == 0 ? 'selected' : '' }}>Tidak Aktif</option>
+                                </select>
+                                @error('is_active')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <!-- End of modifikasi untuk is_active -->
                         <div class="mb-3 row">
                             <div class="col-sm-10 offset-sm-2">
                                 <button type="submit" class="btn btn-primary">Simpan</button>

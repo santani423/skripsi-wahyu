@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Priode;
 
 class ProfileMahasiswaController extends Controller
 {
@@ -34,33 +35,35 @@ class ProfileMahasiswaController extends Controller
     {
         try {
             // Simpan data ke dalam tabel users
-            $user = new User();
-            $user->name = $request->name;
-            $user->email = $request->email;
-            $user->password = Hash::make($request->email); // Pastikan untuk mengenkripsi password
-            $user->save();
+            $periode = Priode::where('is_active', 1)->first();
+            if ($periode) {
+                $user = new User();
+                $user->name = $request->name;
+                $user->email = $request->email;
+                $user->level = 'mahasiswa';
+                $user->password = Hash::make($request->email); // Pastikan untuk mengenkripsi password
+                $user->save();
 
-            // Simpan data ke dalam tabel profile_dosens
-            $ProfileMahasiswa = new ProfileMahasiswa();
-            $ProfileMahasiswa->user_id = $user->id;
-            $ProfileMahasiswa->id_api = $request->profile_mahasiswa_id;
-            $ProfileMahasiswa->keterangan = 'mahasiswa';
-            $ProfileMahasiswa->nama = $request->name;
-            $ProfileMahasiswa->save();
-            $user = new User();
+                // Simpan data ke dalam tabel profile_dosens
+                $ProfileMahasiswa = new ProfileMahasiswa();
+                $ProfileMahasiswa->user_id = $user->id;
+                $ProfileMahasiswa->id_api = $request->profile_mahasiswa_id;
+                $ProfileMahasiswa->keterangan = 'mahasiswa';
+                $ProfileMahasiswa->nama = $request->name;
+                $ProfileMahasiswa->save();
+                $user = new User();
 
 
 
 
-            return redirect()->route('mahasiswa.index')->with('success', 'Dosen Berhasil Di Simpan');
-            // Kembalikan respons berhasil
-            return response()->json(['message' => 'Data berhasil disimpan'], 201);
+                return redirect()->route('mahasiswa.index')->with('success', 'Dosen Berhasil Di Simpan');
+            }
+            return redirect()->route('mahasiswa.index')->with('success', 'Harap aktifkan periode untuk dapat menambah mahasiswa');
+
         } catch (\Exception $e) {
             // Rollback transaksi database jika terjadi kesalahan
             return back();
 
-            // Kembalikan respons gagal dengan pesan kesalahan
-            return response()->json(['message' => 'Terjadi kesalahan saat menyimpan data'], 500);
         }
     }
 
@@ -94,5 +97,10 @@ class ProfileMahasiswaController extends Controller
     public function destroy(ProfileMahasiswa $profileMahasiswa)
     {
         //
+    }
+    public function daftarSkripsi()
+    {
+        $data = ProfileMahasiswa::orderBy("created_at", "desc")->paginate(10);
+        return view("pages.mahasiswa.daftarSkripsi", compact("data"));
     }
 }
