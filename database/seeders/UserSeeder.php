@@ -44,8 +44,8 @@ class UserSeeder extends Seeder
                     $email = 'admin@gmail.com';
                     $level = 'adminUtama';
                 } else if ($i == 2) {
-                    $email = 'kemahasiswaan@gmail.com';
-                    $level = 'kemahasiswaan';
+                    $email = 'wahyu@gmail.com';
+                    $level = 'wahyu';
                 }
                 $user = User::create([
                     'name' => $name,
@@ -53,22 +53,6 @@ class UserSeeder extends Seeder
                     'level' => $level,
                     'password' => Hash::make('123')
                 ]);
-                if ($level == 'mahasiswa') {
-                    $ProfileMahasiswa = new ProfileMahasiswa();
-                    $ProfileMahasiswa->user_id = $user->id;
-                    $ProfileMahasiswa->id_api = rand(100, 999);
-                    $ProfileMahasiswa->keterangan = 'mahasiswa';
-                    $ProfileMahasiswa->nama = $name;
-                    $ProfileMahasiswa->save();
-                } else if ($level == 'dosen') {
-                    $profileDosen = new ProfileDosen();
-                    $profileDosen->user_id = $user->id;
-                    $profileDosen->id_api = rand(100, 999);
-                    $profileDosen->nama = $name;
-                    $profileDosen->save();
-                }
-
-
             }
         }
     }

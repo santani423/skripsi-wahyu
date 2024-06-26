@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Priode;
+use App\Models\DosenSkripsi;
+use App\Models\Skripsi;
 
 class ProfileMahasiswaController extends Controller
 {
@@ -25,7 +27,8 @@ class ProfileMahasiswaController extends Controller
      */
     public function create()
     {
-        return view("pages.mahasiswa.create");
+        $dosen = User::where('level', 'dosen')->get();
+        return view("pages.mahasiswa.create", compact('dosen'));
     }
 
     /**
@@ -53,6 +56,26 @@ class ProfileMahasiswaController extends Controller
                 $ProfileMahasiswa->save();
                 $user = new User();
 
+                $skripsi = new Skripsi();
+                $skripsi->profile_id = $ProfileMahasiswa->id;
+                $skripsi->dosen_pembimbing_1_id = $request->dosen_pembimbing_1;
+                $skripsi->dosen_pembimbing_2_id = $request->dosen_pembimbing_2;
+                $skripsi->periode_id = $periode->id;
+                $skripsi->jumlah_step = 0;
+                $skripsi->save();
+
+                $dosenSkripsi = new DosenSkripsi();
+                $dosenSkripsi->profile_dosen_id = $request->dosen_pembimbing_1;
+                $dosenSkripsi->skripsi_id = $skripsi->id;
+                $dosenSkripsi->skripsi_id = 'pembimbing 1';
+                $dosenSkripsi->save();
+
+                $dosenSkripsi = new DosenSkripsi();
+                $dosenSkripsi->profile_dosen_id = $request->dosen_pembimbing_2;
+                $dosenSkripsi->skripsi_id = $skripsi->id;
+                $dosenSkripsi->skripsi_id = 'pembimbing 2';
+                $dosenSkripsi->save();
+
 
 
 
@@ -70,9 +93,13 @@ class ProfileMahasiswaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(ProfileMahasiswa $profileMahasiswa)
+    public function show($id)
     {
-        //
+
+        $profileMahasiswa = ProfileMahasiswa::find($id);
+        // dd($profileMahasiswa);
+        $dosen = User::where('level', 'dosen')->get();
+        return view("pages.mahasiswa.detail", compact('dosen'));
     }
 
     /**
