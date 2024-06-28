@@ -10,5 +10,6 @@ class HomeController extends Controller
     function index()
     {
         return view('pages.admin.index');
+        // return view('pages.pengajuan');
     }
 }
