@@ -14,7 +14,7 @@ class CreateHasilsTable extends Migration
     public function up()
     {
         Schema::create('hasils', function (Blueprint $table) {
-            $table->string('id_hasil', 3)->primary();
+            $table->id();
             $table->string('id_pengajuan', 3)->notNullable();
             $table->date('tgl_acc')->notNullable();
             $table->date('tgl_bayar')->notNullable();

@@ -14,14 +14,11 @@ class CreateKendaraansTable extends Migration
     public function up()
     {
         Schema::create('kendaraans', function (Blueprint $table) {
-            $table->string('id_kendaraan', 3)->primary();
-            $table->string('nama', 20)->notNullable();
-            $table->string('username', 4)->notNullable();
-            $table->string('password', 8)->notNullable();
-            $table->string('no_tlp', 8)->notNullable();
-            $table->string('email', 20)->notNullable();
-            $table->string('tipe', 20)->notNullable();
-            $table->string('tgl_lahir')->notNullable();
+            $table->id();
+            $table->string('id_rule', 3)->nullable(); 
+            $table->string('ketentuan', 20)->nullable(false);
+            $table->string('operator', 5)->nullable(false);
+            $table->string('nilai', 20)->nullable(false);
             $table->timestamps();
         });
     }

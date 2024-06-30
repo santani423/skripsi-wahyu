@@ -14,14 +14,14 @@ class CreateKetentuansTable extends Migration
     public function up()
     {
         Schema::create('ketentuans', function (Blueprint $table) {
-            $table->string('id_ketentuan', 3)->primary();
+            $table->id();
             $table->string('id_rule', 3);
             $table->string('ketentuan', 20)->notNullable();
             $table->string('operator', 5)->notNullable();
             $table->string('nilai', 20)->notNullable();
             $table->timestamps();
 
-            $table->foreign('id_rule')->references('id_rule')->on('rules')->onDelete('cascade');
+           
         });
     }
 

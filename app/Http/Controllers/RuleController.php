@@ -12,7 +12,8 @@ class RuleController extends Controller
      */
     public function index()
     {
-        //
+        $rules = Rule::all();
+        return view('pages/rule/index',compact('rules'));
     }
 
     /**
@@ -20,7 +21,7 @@ class RuleController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages/rule/create');
     }
 
     /**
@@ -28,7 +29,16 @@ class RuleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([ 
+            'hasil' => 'required|string|max:10',
+        ]);
+        
+        Rule::create([ 
+            'hasil' => $request->hasil,
+        ]);
+        
+
+        return redirect()->route('rule.index')->with('success', 'Data Rule berhasil ditambahkan');
     }
 
     /**
@@ -42,24 +52,36 @@ class RuleController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Rule $rule)
+    public function edit($id)
     {
-        //
+        $rule = Rule::where('id',$id)->first();
+        return view('pages/rule/edit', compact('rule'));
+
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Rule $rule)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([ 
+            'hasil' => 'required|string|max:10',
+        ]);
+
+        Rule::where('id',$id)->update([ 
+            'hasil' => $request->hasil,
+        ]);
+
+        return redirect()->route('rule.index')->with('success', 'Data Rule berhasil diupbah');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Rule $rule)
+    public function destroy($id)
     {
-        //
+        Rule::where('id',$id)->delete();
+
+        return redirect()->route('rule.index')->with('success', 'Data Rule berhasil dihpaus');
     }
 }

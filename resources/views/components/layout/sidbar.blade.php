@@ -16,7 +16,7 @@
         <!--navigation-->
         <ul class="metismenu" id="sidenav">
             <li>
-                <a href="javascrpt:;">
+                <a href="{{route('ketentuans.index')}}">
                     <div class="menu-title">Ketentuan</div>
                 </a>
             </li>
@@ -31,12 +31,12 @@
                 </a>
             </li>
             <li>
-                <a href="javascrpt:;">
+                <a href="{{route('rule.index')}}">
                     <div class="menu-title">Rule</div>
                 </a>
             </li>
             <li>
-                <a href="javascrpt:;">
+                <a href="{{route('kendaraan.index')}}">
                     <div class="menu-title">Kendaraan</div>
                 </a>
             </li>

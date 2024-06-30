@@ -12,7 +12,8 @@ class KetentuanController extends Controller
      */
     public function index()
     {
-        //
+        $ketentuans = Ketentuan::all();
+        return view('pages.ketentuans.index', compact('ketentuans'));
     }
 
     /**
@@ -20,7 +21,7 @@ class KetentuanController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.ketentuans.create');
     }
 
     /**
@@ -28,7 +29,18 @@ class KetentuanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'id_ketentuan' => 'required|string|max:3|unique:ketentuans',
+            'id_rule' => 'required|string|max:3',
+            'ketentuan' => 'required|string|max:20',
+            'operator' => 'required|string|max:5',
+            'nilai' => 'required|string|max:20',
+        ]);
+
+        Ketentuan::create($request->all());
+
+        return redirect()->route('ketentuans.index')->with('success', 'Ketentuan created successfully.');
+   
     }
 
     /**
@@ -42,24 +54,39 @@ class KetentuanController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Ketentuan $ketentuan)
+    public function edit($ketentuan)
     {
-        //
+        $ketentuan = Ketentuan::where('id_ketentuan',$ketentuan)->first();
+        return view('pages.ketentuans.edit', compact('ketentuan'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Ketentuan $ketentuan)
+    public function update(Request $request,$ketentuan)
     {
-        //
+        $request->validate([
+            'id_rule' => 'required|string|max:3',
+            'ketentuan' => 'required|string|max:20',
+            'operator' => 'required|string|max:5',
+            'nilai' => 'required|string|max:20',
+        ]);
+
+        $ketentuan = Ketentuan::where('id_ketentuan',$ketentuan)->first();
+        $ketentuan->update($request->all());
+
+        return redirect()->route('ketentuans.index')->with('success', 'Ketentuan updated successfully.');
+   
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Ketentuan $ketentuan)
+    public function destroy($ketentuan)
     {
-        //
+        $ketentuan = Ketentuan::where('id_ketentuan',$ketentuan)->first();
+        $ketentuan->delete();
+
+        return redirect()->route('ketentuans.index')->with('success', 'Ketentuan deleted successfully.');
     }
 }

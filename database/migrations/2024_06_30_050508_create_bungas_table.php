@@ -14,7 +14,7 @@ class CreateBungasTable extends Migration
     public function up()
     {
         Schema::create('bungas', function (Blueprint $table) {
-            $table->string('id_bunga', 3)->primary();
+            $table->id();
             $table->string('jangka_waktu', 2)->notNullable();
             $table->float('bunga_perbulan', 5, 2)->notNullable();
             $table->timestamps();

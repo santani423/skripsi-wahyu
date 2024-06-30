@@ -14,7 +14,7 @@ class CreatePengajuansTable extends Migration
     public function up()
     {
         Schema::create('pengajuans', function (Blueprint $table) {
-            $table->string('id_pengajuan', 3)->primary();
+            $table->id();
             $table->string('id_kendaraan', 3)->notNullable();
             $table->string('tgl_bunga', 3)->notNullable();
             $table->date('tgl_bayar')->notNullable();

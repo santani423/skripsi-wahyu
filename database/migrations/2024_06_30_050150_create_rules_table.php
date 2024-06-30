@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('rules', function (Blueprint $table) {
-            $table->string('id_rule', 3)->primary();
+            $table->id();
             $table->string('hasil', 10)->notNullable();
             $table->timestamps();
         });
