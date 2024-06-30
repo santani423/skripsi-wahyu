@@ -12,7 +12,9 @@ class BungaController extends Controller
      */
     public function index()
     {
-        //
+        $bungas = Bunga::all();
+
+        return view('pages/bunga/index',compact('bungas'));
     }
 
     /**
@@ -20,7 +22,7 @@ class BungaController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages/bunga/create');
     }
 
     /**
@@ -28,7 +30,15 @@ class BungaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'id_bunga' => 'required|string|max:3',
+            'jangka_waktu' => 'required|string|max:2',
+            'bunga_perbulan' => 'required|numeric',
+        ]);
+
+        Bunga::create($request->all());
+
+        return redirect()->route('bunga.index')->with('success', 'Bunga created successfully.');
     }
 
     /**
@@ -42,24 +52,39 @@ class BungaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Bunga $bunga)
+    public function edit($bunga)
     {
-        //
+        $bunga = Bunga::where('id_bunga',$bunga)->first();
+
+        return view('pages/bunga/edit',compact('bunga'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Bunga $bunga)
-    {
-        //
+    public function update(Request $request, $bunga)
+{
+    $bunga = Bunga::where('id_bunga', $bunga)->first();
+    if ($bunga) {
+        $bunga->id_bunga = $request->input('id_bunga');
+        $bunga->jangka_waktu = $request->input('jangka_waktu');
+        $bunga->bunga_perbulan = $request->input('bunga_perbulan');
+        // Tambahkan field lainnya jika ada
+        
+    
+        $bunga->save();
     }
+
+    return redirect()->route('bunga.index')->with('success', 'Data Bunga berhasil diupdate');
+}
+
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Bunga $bunga)
+    public function destroy($bunga)
     {
-        //
+        $bunga = Bunga::where('id_bunga', $bunga)->delete();
+        return redirect()->route('bunga.index')->with('success', 'Data Bunga berhasil dihapus');
     }
 }

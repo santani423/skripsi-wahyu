@@ -21,6 +21,16 @@
                 </a>
             </li>
             <li>
+                <a href="{{route('pengajuan.index')}}">
+                    <div class="menu-title">Pengajuan</div>
+                </a>
+            </li>
+            <li>
+                <a href="{{route('bunga.index')}}">
+                    <div class="menu-title">Bunga</div>
+                </a>
+            </li>
+            <li>
                 <a href="javascrpt:;">
                     <div class="menu-title">Rule</div>
                 </a>

@@ -4,11 +4,13 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BungaController;
 use App\Http\Controllers\DosenSkripsiController;
 use App\Http\Controllers\ProfileDosenController;
 use App\Http\Controllers\ProfileMahasiswaController;
 use App\Http\Controllers\PriodeController;
 use App\Http\Controllers\RegistrationController;
+use App\Http\Controllers\PengajuanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +38,10 @@ Route::post('/register', [RegistrationController::class, 'register'])->name('reg
 
 
 Route::group(['middleware' => ['auth']], function () {
+
+    Route::resource('/pengajuan', PengajuanController::class);
+    Route::resource('/bunga', BungaController::class);
+
     Route::resource('/dosen-skripsi', DosenSkripsiController::class);
     Route::resource('/profile-skripsi', ProfileDosenController::class);
     Route::resource('/home', HomeController::class);

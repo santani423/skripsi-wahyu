@@ -12,7 +12,8 @@ class PengajuanController extends Controller
      */
     public function index()
     {
-        //
+        $pengajuans = Pengajuan::all();
+        return view('pages/pengajuan/index',compact('pengajuans'));
     }
 
     /**
@@ -20,7 +21,7 @@ class PengajuanController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages/pengajuan/create');
     }
 
     /**
@@ -28,7 +29,28 @@ class PengajuanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'id_pengajuan' => 'required|string|max:3',
+            'id_kendaraan' => 'required|string|max:3',
+            'tgl_bunga' => 'required|string|max:3',
+            'tgl_bayar' => 'required|date',
+            'nama' => 'required|string|max:20',
+            'umur' => 'required|string|max:3',
+            'Stts_tmpt_tgl' => 'required|string|max:20',
+            'slik' => 'required|string|max:8',
+            'gaji' => 'required|integer',
+            'stts_kerja' => 'required|string|max:20',
+            'jns_thn_kndr' => 'required|string|max:8',
+            'mm_kndr' => 'required|string|max:20',
+            'jngka_wktu' => 'required|string|max:10',
+            'harga' => 'required|integer',
+            'byr_bln' => 'required|integer',
+            'ttl_byr' => 'required|integer',
+        ]);
+
+        Pengajuan::create($request->all());
+
+        return redirect()->route('pengajuan.index')->with('success', 'Pengajuan created successfully.');
     }
 
     /**
