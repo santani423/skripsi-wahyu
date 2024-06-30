@@ -8,6 +8,7 @@ use App\Http\Controllers\DosenSkripsiController;
 use App\Http\Controllers\ProfileDosenController;
 use App\Http\Controllers\ProfileMahasiswaController;
 use App\Http\Controllers\PriodeController;
+use App\Http\Controllers\RegistrationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +30,9 @@ Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'inLogin'])->name('inLogin');
 Route::get('/loginButton', [AuthController::class, 'loginButton'])->name('loginButton');
 Route::get('/Logout', [AuthController::class, 'inLogout'])->name('inLogout');
+
+Route::get('/register', [RegistrationController::class, 'showRegistrationForm'])->name('register');
+Route::post('/register', [RegistrationController::class, 'register'])->name('register');
 
 
 Route::group(['middleware' => ['auth']], function () {
