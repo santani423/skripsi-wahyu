@@ -16,17 +16,25 @@
                 <div class="card-body">
                     <form action="{{ route('kendaraan.store') }}" method="POST">
                         @csrf
-                        <div class="mb-3">
-                            <label for="id_ketentuan" class="form-label">ID Ketentuan</label>
-                            <input type="text" class="form-control" id="id_ketentuan" name="id_ketentuan" required>
+                         
+                        <div class="form-group mb-3">
+                            <label for="id_rule">Rule</label>
+                            <select name="id_rule" id="" class="form-control">
+                                <option value="">Pilih Rule</option>
+                                @foreach($rules as $rule)
+                                <option value="{{$rule->id}}">{{$rule->hasil}}</option>
+                                @endforeach
+                            </select>
                         </div>
-                        <div class="mb-3">
-                            <label for="id_rule" class="form-label">ID Rule</label>
-                            <input type="text" class="form-control" id="id_rule" name="id_rule">
-                        </div>
-                        <div class="mb-3">
-                            <label for="ketentuan" class="form-label">Ketentuan</label>
-                            <input type="text" class="form-control" id="ketentuan" name="ketentuan" required>
+                        <div class="orm-group mb-3">
+                           
+                        <label for="ketentuan">Ketentuan</label>
+                            <select name="ketentuan" id="" class="form-control">
+                                <option value="">Pilih Ketentuan</option>
+                                @foreach($ketentuans as $ketentuan)
+                                <option value="{{$ketentuan->id}}">{{$ketentuan->ketentuan}}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="mb-3">
                             <label for="operator" class="form-label">Operator</label>

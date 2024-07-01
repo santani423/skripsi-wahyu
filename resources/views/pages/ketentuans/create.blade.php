@@ -1,4 +1,4 @@
-<x-Layout.Master title="Dashboard">
+<x-Layout.Master title="Add Ketentuan">
 
     @slot('breadcrumbRight')
     <div class="ms-auto">
@@ -27,13 +27,15 @@
                     <form action="{{ route('ketentuans.store') }}" method="POST">
                         @csrf
 
+                        
                         <div class="form-group mb-3">
-                            <label for="id_ketentuan">ID Ketentuan</label>
-                            <input type="text" name="id_ketentuan" class="form-control" value="{{ old('id_ketentuan') }}" required>
-                        </div>
-                        <div class="form-group mb-3">
-                            <label for="id_rule">ID Rule</label>
-                            <input type="text" name="id_rule" class="form-control" value="{{ old('id_rule') }}" required>
+                            <label for="id_rule">Rule</label>
+                            <select name="id_rule" id="" class="form-control">
+                                <option value="">Pilih RUle</option>
+                                @foreach($rules as $rule)
+                                <option value="{{$rule->id}}">{{$rule->hasil}}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="form-group mb-3">
                             <label for="ketentuan">Ketentuan</label>

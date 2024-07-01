@@ -29,9 +29,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($rules as $rule)
+                            @foreach($rules as $key =>$rule)
                                 <tr>
-                                    <td>{{ $rule->id }}</td>
+                                    <td>{{ ++$key}}</td>
                                     <td>{{ $rule->hasil }}</td>
                                     <td>
                                         <a href="{{ route('rule.edit', $rule->id) }}" class="btn btn-warning">Edit</a>

@@ -1,4 +1,4 @@
-<x-Layout.Master title="Dashboard">
+<x-Layout.Master title="Ketentuan">
 
     @slot('breadcrumbRight')
     <div class="ms-auto">
@@ -34,14 +34,14 @@
                         <tbody>
                             @foreach($ketentuans as $ketentuan)
                                 <tr>
-                                    <td>{{ $ketentuan->id_ketentuan }}</td>
-                                    <td>{{ $ketentuan->id_rule }}</td>
+                                    <td>{{ $ketentuan->id }}</td>
+                                    <td>{{ $ketentuan->hasil }}</td>
                                     <td>{{ $ketentuan->ketentuan }}</td>
                                     <td>{{ $ketentuan->operator }}</td>
                                     <td>{{ $ketentuan->nilai }}</td>
                                     <td>
-                                        <a href="{{ route('ketentuans.edit', $ketentuan->id_ketentuan) }}" class="btn btn-warning">Edit</a>
-                                        <form action="{{ route('ketentuans.destroy', $ketentuan->id_ketentuan) }}" method="POST" style="display:inline-block;">
+                                        <a href="{{ route('ketentuans.edit', $ketentuan->id) }}" class="btn btn-warning">Edit</a>
+                                        <form action="{{ route('ketentuans.destroy', $ketentuan->id) }}" method="POST" style="display:inline-block;">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this ketentuan?')">Delete</button>

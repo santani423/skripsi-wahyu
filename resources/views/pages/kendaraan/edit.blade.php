@@ -24,17 +24,40 @@
                         </div>
                     @endif
 
-                    <form action="{{ route('kendaraan.update', $kendaraan->id_ketentuan) }}" method="POST">
+                    <form action="{{ route('kendaraan.update', $kendaraan->id) }}" method="POST">
                         @csrf
                         @method('PUT')
 
+                        
                         <div class="form-group mb-3">
-                            <label for="id_rule">ID Rule</label>
-                            <input type="text" name="id_rule" class="form-control" value="{{ $kendaraan->id_rule }}">
+                            <label for="id_rule">Rule</label>
+                            <select name="id_rule" id="" class="form-control">
+                                <option value="">Pilih Rule</option>
+                                @foreach($rules as $rule)
+                                <option value="{{$rule->id}}">{{$rule->hasil}}</option>
+                                @if($kendaraan->id_rule == $rule->id)
+                                        <option value="{{$rule->id}}" selected>{{$rule->hasil}}</option>
+                                    @else
+                                        <option value="{{$rule->id}}">{{$rule->hasil}}</option>
+                                    @endif
+                               
+                                @endforeach
+                            </select>
                         </div>
-                        <div class="form-group mb-3">
-                            <label for="ketentuan">Ketentuan</label>
-                            <input type="text" name="ketentuan" class="form-control" value="{{ $kendaraan->ketentuan }}">
+                        <div class="orm-group mb-3">
+                           
+                        <label for="ketentuan">Ketentuan</label>
+                            <select name="ketentuan" id="" class="form-control">
+                                <option value="">Pilih Ketentuan</option>
+                                @foreach($ketentuans as $ketentuan)
+                                
+                                @if($kendaraan->ketentuan == $ketentuan->id)
+                                        <option value="{{$ketentuan->id}}" selected>{{$ketentuan->ketentuan}}</option>
+                                    @else
+                                        <option value="{{$ketentuan->id}}">{{$ketentuan->ketentuan}}</option>
+                                    @endif
+                                @endforeach
+                            </select>
                         </div>
                         <div class="form-group mb-3">
                             <label for="operator">Operator</label>

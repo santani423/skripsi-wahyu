@@ -24,8 +24,8 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <th>ID Ketentuan</th>
-                                <th>ID Rule</th>
+                                <th>No</th>
+                                <th>Rule</th>
                                 <th>Ketentuan</th>
                                 <th>Operator</th>
                                 <th>Nilai</th>
@@ -33,16 +33,16 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($kendaraans as $kendaraan)
+                            @foreach($kendaraans as $key => $kendaraan)
                                 <tr>
-                                    <td>{{ $kendaraan->id_ketentuan }}</td>
-                                    <td>{{ $kendaraan->id_rule }}</td>
+                                    <td>{{ ++$key }}</td>
+                                    <td>{{ $kendaraan->hasil }}</td>
                                     <td>{{ $kendaraan->ketentuan }}</td>
                                     <td>{{ $kendaraan->operator }}</td>
                                     <td>{{ $kendaraan->nilai }}</td>
                                     <td>
-                                        <a href="{{ route('kendaraan.edit', $kendaraan->id_ketentuan) }}" class="btn btn-warning btn-sm">Edit</a>
-                                        <form action="{{ route('kendaraan.destroy', $kendaraan->id_ketentuan) }}" method="POST" style="display:inline-block;">
+                                        <a href="{{ route('kendaraan.edit', $kendaraan->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                        <form action="{{ route('kendaraan.destroy', $kendaraan->id) }}" method="POST" style="display:inline-block;">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger btn-sm">Delete</button>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ketentuan;
+use App\Models\Rule;
 use Illuminate\Http\Request;
 
 class KetentuanController extends Controller
@@ -12,7 +13,7 @@ class KetentuanController extends Controller
      */
     public function index()
     {
-        $ketentuans = Ketentuan::all();
+        $ketentuans = Ketentuan::join('rules','rules.id','=','ketentuans.id_rule')->select('rules.hasil','ketentuans.*')->get();
         return view('pages.ketentuans.index', compact('ketentuans'));
     }
 
@@ -21,7 +22,8 @@ class KetentuanController extends Controller
      */
     public function create()
     {
-        return view('pages.ketentuans.create');
+        $rules = Rule::get();
+        return view('pages.ketentuans.create',compact('rules'));
     }
 
     /**
@@ -29,8 +31,7 @@ class KetentuanController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'id_ketentuan' => 'required|string|max:3|unique:ketentuans',
+        $request->validate([ 
             'id_rule' => 'required|string|max:3',
             'ketentuan' => 'required|string|max:20',
             'operator' => 'required|string|max:5',
@@ -56,8 +57,9 @@ class KetentuanController extends Controller
      */
     public function edit($ketentuan)
     {
-        $ketentuan = Ketentuan::where('id_ketentuan',$ketentuan)->first();
-        return view('pages.ketentuans.edit', compact('ketentuan'));
+        $ketentuan = Ketentuan::where('id',$ketentuan)->first();
+        $rules = Rule::get();
+        return view('pages.ketentuans.edit', compact('ketentuan','rules'));
     }
 
     /**
@@ -72,7 +74,7 @@ class KetentuanController extends Controller
             'nilai' => 'required|string|max:20',
         ]);
 
-        $ketentuan = Ketentuan::where('id_ketentuan',$ketentuan)->first();
+        $ketentuan = Ketentuan::where('id',$ketentuan)->first();
         $ketentuan->update($request->all());
 
         return redirect()->route('ketentuans.index')->with('success', 'Ketentuan updated successfully.');
@@ -82,9 +84,9 @@ class KetentuanController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($ketentuan)
+    public function destroy(Ketentuan $ketentuan)
     {
-        $ketentuan = Ketentuan::where('id_ketentuan',$ketentuan)->first();
+       
         $ketentuan->delete();
 
         return redirect()->route('ketentuans.index')->with('success', 'Ketentuan deleted successfully.');

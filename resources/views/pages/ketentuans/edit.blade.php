@@ -1,4 +1,4 @@
-<x-Layout.Master title="Dashboard">
+<x-Layout.Master title="Edit Ketentuan">
 
     @slot('breadcrumbRight')
     <div class="ms-auto">
@@ -24,14 +24,23 @@
                         </div>
                     @endif
 
-                    <form action="{{ route('ketentuans.update', $ketentuan->id_ketentuan) }}" method="POST">
+                    <form action="{{ route('ketentuans.update', $ketentuan->id) }}" method="POST">
                         @csrf
                         @method('PUT')
 
                         <div class="form-group mb-3">
-                            <label for="id_ketentuan">ID Ketentuan</label>
-                            <input type="text" name="id_ketentuan" class="form-control" value="{{ $ketentuan->id_ketentuan }}" readonly>
+                            <label for="id_rule">Rule</label>
+                            <select name="id_rule" id="" class="form-control">
+                                @foreach($rules as $rule)
+                                    @if($rule->id == $ketentuan->id_rule)
+                                        <option value="{{$rule->id}}" selected>{{$rule->hasil}}</option>
+                                    @else
+                                        <option value="{{$rule->id}}">{{$rule->hasil}}</option>
+                                    @endif
+                                @endforeach
+                            </select>
                         </div>
+
                         <div class="form-group mb-3">
                             <label for="id_rule">ID Rule</label>
                             <input type="text" name="id_rule" class="form-control" value="{{ $ketentuan->id_rule }}" required>
