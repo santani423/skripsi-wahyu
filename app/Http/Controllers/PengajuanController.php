@@ -97,6 +97,14 @@ class PengajuanController extends Controller
             'residenceType' => $pengajuan->Stts_tmpt_tgl,
             'employmentStatus' =>  $pengajuan->stts_kerja,
         ];
+        // $data = [
+        //     'age' => 35,
+        //     'slik' => 'baik',
+        //     'vehicleYear' => 'rendah',
+        //     'salary' => 8000000,
+        //     'residenceType' => 'ngontrak/kost',
+        //     'employmentStatus' => 'tetap'
+        // ];
         
         $result = $this->expertSystemService->evaluateLoanApplication(
             $data['age'],

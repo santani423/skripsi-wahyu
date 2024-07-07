@@ -34,7 +34,7 @@
             <div class="col-12 col-md-8 col-lg-6 col-xl-5 col-xxl-4 mx-auto">
                 <div class="card rounded-4">
                     <div class="card-body p-5">
-
+                        <h1>Selamat Datang </h1>
 
                         <div class="form-body my-4">
                             <form action="{{route('inLogin')}}" method="POST"  class="row g-3">
