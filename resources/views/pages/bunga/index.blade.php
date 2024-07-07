@@ -37,12 +37,12 @@
                         <tbody>
                             @foreach($bungas as $bunga)
                                 <tr>
-                                    <td>{{ $bunga->id_bunga }}</td>
+                                    <td>{{ $bunga->id }}</td>
                                     <td>{{ $bunga->jangka_waktu }}</td>
                                     <td>{{ $bunga->bunga_perbulan }}</td>
                                     <td>
-                                        <a href="{{ route('bunga.edit', $bunga->id_bunga) }}" class="btn btn-warning">Edit</a>
-                                        <form action="{{ route('bunga.destroy', $bunga->id_bunga) }}" method="POST" style="display:inline-block;">
+                                        <a href="{{ route('bunga.edit', $bunga->id) }}" class="btn btn-warning">Edit</a>
+                                        <form action="{{ route('bunga.destroy', $bunga->id) }}" method="POST" style="display:inline-block;">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger">Hapus</button>

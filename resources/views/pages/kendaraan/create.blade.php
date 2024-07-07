@@ -26,9 +26,8 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="orm-group mb-3">
-                           
-                        <label for="ketentuan">Ketentuan</label>
+                        <div class="form-group mb-3">
+                            <label for="ketentuan">Ketentuan</label>
                             <select name="ketentuan" id="" class="form-control">
                                 <option value="">Pilih Ketentuan</option>
                                 @foreach($ketentuans as $ketentuan)
@@ -43,6 +42,18 @@
                         <div class="mb-3">
                             <label for="nilai" class="form-label">Nilai</label>
                             <input type="text" class="form-control" id="nilai" name="nilai" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="tahun_kendaraan" class="form-label">Tahun Kendaraan</label>
+                            <input type="number" class="form-control" id="tahun_kendaraan" name="tahun_kendaraan" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="nama_kendaraan" class="form-label">Nama Kendaraan</label>
+                            <input type="text" class="form-control" id="nama_kendaraan" name="nama_kendaraan" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="merek_kendaraan" class="form-label">Merek Kendaraan</label>
+                            <input type="text" class="form-control" id="merek_kendaraan" name="merek_kendaraan" required>
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>

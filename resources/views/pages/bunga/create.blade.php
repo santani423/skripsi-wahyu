@@ -22,10 +22,7 @@
                     @endif
                     <form action="{{ route('bunga.store') }}" method="POST">
                         @csrf
-                        <div class="mb-3">
-                            <label for="id_bunga" class="form-label">ID Bunga</label>
-                            <input type="text" class="form-control" id="id_bunga" name="id_bunga" required>
-                        </div>
+                        
                         <div class="mb-3">
                             <label for="jangka_waktu" class="form-label">Jangka Waktu</label>
                             <input type="text" class="form-control" id="jangka_waktu" name="jangka_waktu" required>

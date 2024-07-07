@@ -1,4 +1,4 @@
-<x-Layout.Master title="Dashboard">
+<x-Layout.Master title="Kendaraan">
 
     @slot('breadcrumbRight')
     <div class="ms-auto">
@@ -29,6 +29,9 @@
                                 <th>Ketentuan</th>
                                 <th>Operator</th>
                                 <th>Nilai</th>
+                                <th>Tahun Kendaraan</th>
+                                <th>Nama Kendaraan</th>
+                                <th>Merek Kendaraan</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -40,6 +43,9 @@
                                     <td>{{ $kendaraan->ketentuan }}</td>
                                     <td>{{ $kendaraan->operator }}</td>
                                     <td>{{ $kendaraan->nilai }}</td>
+                                    <td>{{ $kendaraan->tahun_kendaraan }}</td>
+                                    <td>{{ $kendaraan->nama_kendaraan }}</td>
+                                    <td>{{ $kendaraan->merek_kendaraan }}</td>
                                     <td>
                                         <a href="{{ route('kendaraan.edit', $kendaraan->id) }}" class="btn btn-warning btn-sm">Edit</a>
                                         <form action="{{ route('kendaraan.destroy', $kendaraan->id) }}" method="POST" style="display:inline-block;">
@@ -52,8 +58,6 @@
                             @endforeach
                         </tbody>
                     </table>
-
-               
                 </div>
             </div>
         </div>

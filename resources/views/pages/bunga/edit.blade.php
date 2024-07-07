@@ -14,13 +14,10 @@
                     Edit Bunga
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('bunga.update', $bunga->id_bunga) }}" method="POST">
+                    <form action="{{ route('bunga.update', $bunga->id) }}" method="POST">
                         @csrf
                         @method('PUT')
-                        <div class="mb-3">
-                            <label for="id_bunga" class="form-label">ID Bunga</label>
-                            <input type="text" class="form-control" id="id_bunga" name="id_bunga" value="{{ $bunga->id_bunga }}" required>
-                        </div>
+                       
                         <div class="mb-3">
                             <label for="jangka_waktu" class="form-label">Jangka Waktu</label>
                             <input type="text" class="form-control" id="jangka_waktu" name="jangka_waktu" value="{{ $bunga->jangka_waktu }}" required>

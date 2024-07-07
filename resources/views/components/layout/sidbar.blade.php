@@ -40,26 +40,13 @@
                     <div class="menu-title">Kendaraan</div>
                 </a>
             </li>
-            <li>
-                <a href="javascrpt:;">
-                    <div class="menu-title">Bunga</div>
-                </a>
-            </li>
+             
             <li>
                 <a href="javascrpt:;">
                     <div class="menu-title">Laporan</div>
                 </a>
             </li>
-            <!-- <li>
-                <a href="javascrpt:;">
-                    <div class="menu-title">Pengajuan </div>
-                </a>
-            </li>
-            <li>
-                <a href="javascrpt:;">
-                    <div class="menu-title">Status Pengajuan </div>
-                </a>
-            </li> -->
+            
 
         </ul>
         <!--end navigation-->

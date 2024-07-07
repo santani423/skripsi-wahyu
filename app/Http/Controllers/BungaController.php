@@ -31,7 +31,6 @@ class BungaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'id_bunga' => 'required|string|max:3',
             'jangka_waktu' => 'required|string|max:2',
             'bunga_perbulan' => 'required|numeric',
         ]);
@@ -54,7 +53,7 @@ class BungaController extends Controller
      */
     public function edit($bunga)
     {
-        $bunga = Bunga::where('id_bunga',$bunga)->first();
+        $bunga = Bunga::where('id',$bunga)->first();
 
         return view('pages/bunga/edit',compact('bunga'));
     }
@@ -64,9 +63,8 @@ class BungaController extends Controller
      */
     public function update(Request $request, $bunga)
 {
-    $bunga = Bunga::where('id_bunga', $bunga)->first();
-    if ($bunga) {
-        $bunga->id_bunga = $request->input('id_bunga');
+    $bunga = Bunga::where('id', $bunga)->first();
+    if ($bunga) { 
         $bunga->jangka_waktu = $request->input('jangka_waktu');
         $bunga->bunga_perbulan = $request->input('bunga_perbulan');
         // Tambahkan field lainnya jika ada
@@ -84,7 +82,7 @@ class BungaController extends Controller
      */
     public function destroy($bunga)
     {
-        $bunga = Bunga::where('id_bunga', $bunga)->delete();
+        $bunga = Bunga::where('id', $bunga)->delete();
         return redirect()->route('bunga.index')->with('success', 'Data Bunga berhasil dihapus');
     }
 }

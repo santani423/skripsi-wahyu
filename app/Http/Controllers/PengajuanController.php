@@ -2,18 +2,29 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bunga;
+use App\Models\Kendaraan;
 use App\Models\Pengajuan;
 use Illuminate\Http\Request;
+use App\Services\ExpertSystemService;
 
 class PengajuanController extends Controller
 {
+
+    protected $expertSystemService;
+
+    public function __construct(ExpertSystemService $expertSystemService)
+    {
+        $this->expertSystemService = $expertSystemService;
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
         $pengajuans = Pengajuan::all();
-        return view('pages/pengajuan/index',compact('pengajuans'));
+        $kendaraans = Kendaraan::get();
+        return view('pages/pengajuan/index',compact('pengajuans','kendaraans'));
     }
 
     /**
@@ -21,7 +32,10 @@ class PengajuanController extends Controller
      */
     public function create()
     {
-        return view('pages/pengajuan/create');
+        
+        $kendaraans = Kendaraan::get();
+        $bunga = Bunga::get();
+        return view('pages/pengajuan/create',compact('kendaraans','bunga'));
     }
 
     /**
@@ -30,12 +44,11 @@ class PengajuanController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'id_pengajuan' => 'required|string|max:3',
-            'id_kendaraan' => 'required|string|max:3',
-            'tgl_bunga' => 'required|string|max:3',
+            'id_kendaraan' => 'required',
+            'tgl_bunga' => 'required',
             'tgl_bayar' => 'required|date',
             'nama' => 'required|string|max:20',
-            'umur' => 'required|string|max:3',
+            'umur' => 'required',
             'Stts_tmpt_tgl' => 'required|string|max:20',
             'slik' => 'required|string|max:8',
             'gaji' => 'required|integer',
@@ -58,7 +71,7 @@ class PengajuanController extends Controller
      */
     public function show(Pengajuan $pengajuan)
     {
-        //
+        return view('pages/pengajuan/show',compact('pengajuan'));
     }
 
     /**
@@ -74,7 +87,30 @@ class PengajuanController extends Controller
      */
     public function update(Request $request, Pengajuan $pengajuan)
     {
-        //
+        // dd($pengajuan);
+        // dd($request->all());
+        $data = [
+            'age' => $pengajuan->umur,
+            'slik' => $request->slik,
+            'vehicleYear' =>  $request->vehicleYear,
+            'salary' => $pengajuan->gaji,
+            'residenceType' => $pengajuan->Stts_tmpt_tgl,
+            'employmentStatus' =>  $pengajuan->stts_kerja,
+        ];
+        
+        $result = $this->expertSystemService->evaluateLoanApplication(
+            $data['age'],
+            $data['slik'],
+            $data['vehicleYear'],
+            $data['salary'],
+            $data['residenceType'],
+            $data['employmentStatus']
+        );
+        dd($data);
+        $pengajuan->sts_pengajuan = $result['status'];
+        $pengajuan->save();
+
+        return back()->with('success', $result['message']);
     }
 
     /**

@@ -34,18 +34,22 @@ class KendaraanController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        $validatedData = $request->validate([ 
-            'id_rule' => 'nullable|string|max:3',
-            'ketentuan' => 'required|string|max:20',
-            'operator' => 'required|string|max:5',
-            'nilai' => 'required|string|max:20',
-        ]);
+{
+    $validatedData = $request->validate([ 
+        'id_rule' => 'nullable|string|max:3',
+        'ketentuan' => 'required|string|max:20',
+        'operator' => 'required|string|max:5',
+        'nilai' => 'required|string|max:20',
+        'tahun_kendaraan' => 'required|integer',
+        'nama_kendaraan' => 'required|string|max:100',
+        'merek_kendaraan' => 'required|string|max:100',
+    ]);
 
-        Kendaraan::create($validatedData);
+    Kendaraan::create($validatedData);
 
-        return redirect()->route('kendaraan.index')->with('success', 'Data Kendaraan berhasil ditambahkan');
-    }
+    return redirect()->route('kendaraan.index')->with('success', 'Data Kendaraan berhasil ditambahkan');
+}
+
 
     /**
      * Display the specified resource.
@@ -77,17 +81,28 @@ class KendaraanController extends Controller
             'ketentuan' => 'required|string|max:20',
             'operator' => 'required|string|max:5',
             'nilai' => 'required|string|max:20',
+            'tahun_kendaraan' => 'required|integer',
+            'nama_kendaraan' => 'required|string|max:100',
+            'merek_kendaraan' => 'required|string|max:100',
         ]);
-
-        $kendaraan = Kendaraan::where('id',$kendaraan)->first();;
-        $kendaraan->id_rule = $request->id_rule;
-        $kendaraan->ketentuan = $request->ketentuan;
-        $kendaraan->operator = $request->operator;
-        $kendaraan->nilai = $request->nilai;
-        $kendaraan->save();
-
-        return redirect()->route('kendaraan.index')->with('success', 'Data Kendaraan berhasil diupdate');
+    
+        $kendaraan = Kendaraan::where('id', $kendaraan)->first();
+        if ($kendaraan) {
+            $kendaraan->id_rule = $request->id_rule;
+            $kendaraan->ketentuan = $request->ketentuan;
+            $kendaraan->operator = $request->operator;
+            $kendaraan->nilai = $request->nilai;
+            $kendaraan->tahun_kendaraan = $request->tahun_kendaraan;
+            $kendaraan->nama_kendaraan = $request->nama_kendaraan;
+            $kendaraan->merek_kendaraan = $request->merek_kendaraan;
+            $kendaraan->save();
+    
+            return redirect()->route('kendaraan.index')->with('success', 'Data Kendaraan berhasil diupdate');
+        } else {
+            return redirect()->route('kendaraan.index')->with('error', 'Data Kendaraan tidak ditemukan');
+        }
     }
+    
 
     /**
      * Remove the specified resource from storage.
