@@ -106,7 +106,7 @@ class PengajuanController extends Controller
             $data['residenceType'],
             $data['employmentStatus']
         );
-        dd($data);
+        // dd($data);
         $pengajuan->sts_pengajuan = $result['status'];
         $pengajuan->save();
 

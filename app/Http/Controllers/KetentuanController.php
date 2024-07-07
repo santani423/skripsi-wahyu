@@ -34,7 +34,7 @@ class KetentuanController extends Controller
         $request->validate([ 
             'id_rule' => 'required|string|max:3',
             'ketentuan' => 'required|string|max:20',
-            'operator' => 'required|string|max:5',
+            'operator' => 'required|string',
             'nilai' => 'required|string|max:20',
         ]);
 
