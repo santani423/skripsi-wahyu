@@ -51,7 +51,9 @@
                                     <th>Pembayaran Perbulan</th>
                                     <th>Total Bayar</th>
                                     <th>Status Pengajuan</th>
+                                    @if(Auth::user()->level == 'adminUtama')
                                     <th>Aksi</th>
+                                    @endif
                                 </tr>
                             </thead>
                             <tbody>
@@ -82,8 +84,10 @@
         @else
             <!-- Handle kondisi lain jika ada -->
              Pengahuan Sedang Ditinjau
-        @endif</td>  
-                                        <td> <a href="{{route('pengajuan.show',$pengajuan->id)}}" class="btn btn-success">Cek</a> </td>
+        @endif
+    </td>  
+    
+    @if(Auth::user()->level == 'adminUtama')                                    <td> <a href="{{route('pengajuan.show',$pengajuan->id)}}" class="btn btn-success">Cek</a> </td> @endif
                                     </tr>
                                 @endforeach
                             </tbody>

@@ -7,6 +7,7 @@ use App\Models\Kendaraan;
 use App\Models\Pengajuan;
 use Illuminate\Http\Request;
 use App\Services\ExpertSystemService;
+use Illuminate\Support\Facades\Auth;
 
 class PengajuanController extends Controller
 {
@@ -24,6 +25,10 @@ class PengajuanController extends Controller
     {
         $pengajuans = Pengajuan::all();
         $kendaraans = Kendaraan::get();
+        if (Auth::user()->level != 'adminUtama') {
+            $id = Auth::user()->id;
+            $pengajuans = Pengajuan::where('user_id',$id)->get();
+        }
         return view('pages/pengajuan/index',compact('pengajuans','kendaraans'));
     }
 
@@ -45,6 +50,7 @@ class PengajuanController extends Controller
     {
         $request->validate([
             'id_kendaraan' => 'required',
+            'user_id' => 'required',
             'tgl_bunga' => 'required',
             'tgl_bayar' => 'required|date',
             'nama' => 'required|string|max:20',
