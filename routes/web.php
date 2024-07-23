@@ -27,10 +27,9 @@ use App\Http\Controllers\RuleController;
 */
 
 
-Route::get('/', function () {
-    // return view('welcome');
-});
 
+
+Route::get('/', [AuthController::class, 'login']);
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'inLogin'])->name('inLogin');
 Route::get('/loginButton', [AuthController::class, 'loginButton'])->name('loginButton');

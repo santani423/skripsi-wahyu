@@ -1,4 +1,4 @@
-<x-Layout.Master title="Dhasboard">
+<x-Layout.Master :title="Auth::user()->name">
 
 	@slot('breadcrumbRight')
 	<div class="ms-auto">

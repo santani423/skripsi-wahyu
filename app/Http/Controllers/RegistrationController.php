@@ -21,14 +21,16 @@ class RegistrationController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
         ]);
-
         // Create new user
-        User::create([
+      $user =  User::create([
             'name' => $request->name,
-            'email' => $request->email,
+            'email' => $request->email, 
             'level' => 'customer',
             'password' => Hash::make($request->password),
         ]);
+        $user->level =  'customer';
+        $user->save();
+        // dd($request);
 
         // Redirect to login or dashboard after registration
         return redirect()->route('login')->with('success', 'Registration successful! Please login.');
