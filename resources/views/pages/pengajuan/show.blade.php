@@ -82,17 +82,17 @@
                     </table>
                     <div class="row">
                     <div class="col-md-6">
-    <label for="file_ktp">KTP</label>
-    <img src="{{asset('storage/'.$pengajuan->file_ktp)}}" class="img-rounded" width="200" height="200" alt="KTP">
-</div>
-<div class="col-md-6">
-    <label for="file_kk">KK</label>
-    <img src="{{asset('storage/'.$pengajuan->file_kk)}}" class="img-rounded" width="200" height="200" alt="KK">
-</div>
-<div class="col-md-6">
-    <label for="file_npwp">NPWP</label>
-    <img src="{{asset('storage/'.$pengajuan->file_npwp)}}" class="img-rounded" width="200" height="200" alt="NPWP">
-</div>
+                        <label for="file_ktp">KTP</label>
+                        <img src="{{asset('storage/'.$pengajuan->file_ktp)}}" class="img-rounded" width="200" height="200" alt="KTP">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="file_kk">KK</label>
+                        <img src="{{asset('storage/'.$pengajuan->file_kk)}}" class="img-rounded" width="200" height="200" alt="KK">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="file_npwp">NPWP</label>
+                        <img src="{{asset('storage/'.$pengajuan->file_npwp)}}" class="img-rounded" width="200" height="200" alt="NPWP">
+                    </div>
 
                         <!-- <div class="col-md-6"><img src="cinqueterre.jpg" class="img-rounded" alt="Cinque Terre"></div>
                         <div class="col-md-6"><img src="cinqueterre.jpg" class="img-rounded" alt="Cinque Terre"></div>
