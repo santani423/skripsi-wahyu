@@ -1,12 +1,12 @@
 <!--start sidebar-->
 <aside class="sidebar-wrapper">
     <div class="sidebar-header">
-        <!-- <div class="logo-icon">
-            <img src="{{asset('assets/images/logo-icon.png')}}" class="logo-img" alt="">
-        </div> -->
-        <div class="logo-name flex-grow-1">
-            <h5 class="mb-0">Mizuho</h5>
+        <div class="logo-icon">
+            <img src="{{asset('assets/images/lgo.jpeg')}}"  width="172" height="100" alt="">
         </div>
+        <!-- <div class="logo-name flex-grow-1">
+            <h5 class="mb-0">Mizuho</h5>
+        </div> -->
         <div class="sidebar-close">
             <span class="material-icons-outlined">close</span>
         </div>
