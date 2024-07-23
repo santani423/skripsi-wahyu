@@ -98,7 +98,7 @@
     <script src="{{asset('assets/plugins/metismenu/metisMenu.min.js')}}"></script>
     <script src="{{asset('assets/plugins/simplebar/js/simplebar.min.js')}}"></script>
     <script src="{{asset('assets/js/main.js')}}"></script>
-    {{$css}}
+    {{$js}}
 
 </body>
 

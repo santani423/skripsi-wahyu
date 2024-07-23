@@ -8,6 +8,7 @@
 
     @slot('body')
     <div class="row">
+        @if(Auth::user()->level == 'customer')
         <div class="col-md-12">
             <div class="card mb-3">
                 <div class="card-header">
@@ -18,7 +19,7 @@
                 </div>
             </div>
         </div>
-        
+        @endif
         <div class="col-md-12">
             <div class="card mb-3">
                 <div class="card-header">
@@ -34,9 +35,10 @@
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th>ID Pengajuan</th>
+                                    <!-- <th>ID Pengajuan</th>
                                     <th>ID Kendaraan</th>
-                                    <th>Tanggal Bunga</th>
+                                    <th>Tanggal Bunga</th> -->
+                                    <th>No</th>
                                     <th>Tanggal Bayar</th>
                                     <th>Nama</th>
                                     <th>Umur</th>
@@ -44,24 +46,25 @@
                                     <th>SLIK</th>
                                     <th>Gaji</th>
                                     <th>Status Kerja</th>
-                                    <th>Jenis Tahun Kendaraan</th>
-                                    <th>Merek Kendaraan</th>
-                                    <th>Jangka Waktu</th>
+                                    <!-- <th>Jenis Tahun Kendaraan</th>
+                                    <th>Merek Kendaraan</th> -->
+                                    <!-- <th>Jangka Waktu</th> -->
                                     <th>Harga</th>
                                     <th>Pembayaran Perbulan</th>
                                     <th>Total Bayar</th>
                                     <th>Status Pengajuan</th>
-                                    @if(Auth::user()->level == 'adminUtama')
+                                    @if(Auth::user()->level == 'analys')
                                     <th>Aksi</th>
                                     @endif
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($pengajuans as $pengajuan)
+                                @foreach($pengajuans as $key =>$pengajuan)
                                     <tr>
-                                        <td>{{ $pengajuan->id_pengajuan }}</td>
+                                        <!-- <td>{{ $pengajuan->id_pengajuan }}</td>
                                         <td>{{ $pengajuan->id_kendaraan }}</td>
-                                        <td>{{ $pengajuan->tgl_bunga }}</td>
+                                        <td>{{ $pengajuan->tgl_bunga }}</td> -->
+                                        <td>{{ ++$key }}</td>
                                         <td>{{ $pengajuan->tgl_bayar }}</td>
                                         <td>{{ $pengajuan->nama }}</td>
                                         <td>{{ $pengajuan->umur }}</td>
@@ -69,9 +72,9 @@
                                         <td>{{ $pengajuan->slik }}</td>
                                         <td>{{ $pengajuan->gaji }}</td>
                                         <td>{{ $pengajuan->stts_kerja }}</td>
-                                        <td>{{ $pengajuan->jns_thn_kndr }}</td>
+                                        <!-- <td>{{ $pengajuan->jns_thn_kndr }}</td>
                                         <td>{{ $pengajuan->mm_kndr }}</td>
-                                        <td>{{ $pengajuan->jngka_wktu }}</td>
+                                        <td>{{ $pengajuan->jngka_wktu }}</td> -->
                                         <td>{{ $pengajuan->harga }}</td>
                                         <td>{{ $pengajuan->byr_bln }}</td>
                                         <td>{{ $pengajuan->ttl_byr }}</td>
@@ -87,7 +90,7 @@
         @endif
     </td>  
     
-    @if(Auth::user()->level == 'adminUtama')                                    <td> <a href="{{route('pengajuan.show',$pengajuan->id)}}" class="btn btn-success">Cek</a> </td> @endif
+    @if(Auth::user()->level == 'analys')                                    <td> <a href="{{route('pengajuan.show',$pengajuan->id)}}" class="btn btn-success">Cek</a> </td> @endif
                                     </tr>
                                 @endforeach
                             </tbody>

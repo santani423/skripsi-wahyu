@@ -38,12 +38,34 @@
                 </a>
             </li>
             @endif
+           
+            
+            @if(Auth::user()->level == 'customer')
+            <li>
+                <a href="{{route('pengajuan.create')}}">
+                    <div class="menu-title">Pengajuan</div>
+                </a>
+            </li>
+            <li>
+                <a href="{{route('pengajuan.index')}}">
+                    <div class="menu-title">Status Pengajuan</div>
+                </a>
+            </li>
+            
+            @endif
+            @if(Auth::user()->level == 'analys')
             <li>
                 <a href="{{route('pengajuan.index')}}">
                     <div class="menu-title">Pengajuan</div>
                 </a>
             </li>
+            <li>
+                <a href="{{route('pengajuan.index')}}">
+                    <div class="menu-title">Status Pengajuan</div>
+                </a>
+            </li>
             
+            @endif
             @if(Auth::user()->level == 'adminUtama')
             <li>
                 <a href="javascrpt:;">

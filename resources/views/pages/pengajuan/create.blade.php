@@ -5,6 +5,50 @@
         <!-- Right breadcrumb content -->
     </div>
     @endslot
+    @slot('js')
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const kendaraanSelect = document.getElementById('id_kendaraan');
+            const bungaSelect = document.getElementById('tgl_bunga');
+            const hargaInput = document.getElementById('harga');
+            const byrBlnInput = document.getElementById('byr_bln');
+            const ttlByrInput = document.getElementById('ttl_byr');
+
+            function updateHarga() {
+                const selectedOption = kendaraanSelect.options[kendaraanSelect.selectedIndex];
+                const harga = selectedOption.getAttribute('data-harga');
+                hargaInput.value = harga ? harga : '';
+                updatePembayaranPerBulan();
+            }
+
+            function updatePembayaranPerBulan() {
+                const harga = parseFloat(hargaInput.value);
+                const selectedBungaOption = bungaSelect.options[bungaSelect.selectedIndex];
+                const bunga = parseFloat(selectedBungaOption.getAttribute('data-bunga'));
+
+                if (!isNaN(harga) && !isNaN(bunga)) {
+                    const pembayaranPerBulan = harga * (bunga / 100);
+                    byrBlnInput.value = pembayaranPerBulan.toFixed(2);
+                    ttlByrInput.value = (harga + pembayaranPerBulan).toFixed(2);
+                } else {
+                    byrBlnInput.value = '';
+                    ttlByrInput.value = '';
+                }
+            }
+
+            kendaraanSelect.addEventListener('change', updateHarga);
+            bungaSelect.addEventListener('change', updatePembayaranPerBulan);
+
+            // Trigger change event on page load to populate the fields if values are already selected
+            if (kendaraanSelect.value) {
+                kendaraanSelect.dispatchEvent(new Event('change'));
+            }
+            if (bungaSelect.value) {
+                bungaSelect.dispatchEvent(new Event('change'));
+            }
+        });
+    </script>
+    @endslot
 
     @slot('body')
     <div class="row">
@@ -14,8 +58,8 @@
                     Add Pengajuan
                 </div>
                 <div class="card-body">
-                       <!-- Menampilkan pesan error validasi -->
-                       @if($errors->any())
+                    <!-- Menampilkan pesan error validasi -->
+                    @if($errors->any())
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
                             <ul>
                                 @foreach($errors->all() as $error)
@@ -25,15 +69,15 @@
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                     @endif
-                    <form action="{{ route('pengajuan.store') }}" method="POST">
+                    <form action="{{ route('pengajuan.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
-                        <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
+                        <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                         <div class="mb-3">
                             <label for="id_kendaraan" class="form-label">Kendaraan</label>
                             <select name="id_kendaraan" id="id_kendaraan" class="form-control @error('id_kendaraan') is-invalid @enderror">
                                 <option value="">Pilih Kendaraan</option>
                                 @foreach($kendaraans as $kt)
-                                    <option value="{{ $kt->id }}" {{ old('id_kendaraan') == $kt->id ? 'selected' : '' }}>{{ $kt->operator }}</option>
+                                    <option value="{{ $kt->id }}" data-harga="{{ $kt->nilai }}" {{ old('id_kendaraan') == $kt->id ? 'selected' : '' }}>{{ $kt->nama_kendaraan }}</option>
                                 @endforeach
                             </select>
                             @error('id_kendaraan')
@@ -41,11 +85,11 @@
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="tgl_bunga" class="form-label">Kendaraan</label>
+                            <label for="tgl_bunga" class="form-label">Bunga</label>
                             <select name="tgl_bunga" id="tgl_bunga" class="form-control @error('tgl_bunga') is-invalid @enderror">
                                 <option value="">Pilih Bunga</option>
                                 @foreach($bunga as $kt)
-                                    <option value="{{ $kt->id }}" {{ old('tgl_bunga') == $kt->id ? 'selected' : '' }}>{{ $kt->jangka_waktu }}</option>
+                                    <option value="{{ $kt->id }}" data-bunga="{{ $kt->bunga_perbulan }}" {{ old('tgl_bunga') == $kt->id ? 'selected' : '' }}>{{ $kt->jangka_waktu }}</option>
                                 @endforeach
                             </select>
                             @error('tgl_bunga')
@@ -87,13 +131,7 @@
                             @enderror
                         </div>
 
-                        <div class="mb-3">
-                            <label for="slik" class="form-label">SLIK</label>
-                            <input type="text" class="form-control @error('slik') is-invalid @enderror" id="slik" name="slik" value="{{ old('slik') }}" required>
-                            @error('slik')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
+                        
                         <div class="mb-3">
                             <label for="gaji" class="form-label">Gaji</label>
                             <input type="number" class="form-control @error('gaji') is-invalid @enderror" id="gaji" name="gaji" value="{{ old('gaji') }}" required>
@@ -113,27 +151,7 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-                        <div class="mb-3">
-                            <label for="jns_thn_kndr" class="form-label">Jenis Tahun Kendaraan</label>
-                            <input type="text" class="form-control @error('jns_thn_kndr') is-invalid @enderror" id="jns_thn_kndr" name="jns_thn_kndr" value="{{ old('jns_thn_kndr') }}" required>
-                            @error('jns_thn_kndr')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <div class="mb-3">
-                            <label for="mm_kndr" class="form-label">Merek Kendaraan</label>
-                            <input type="text" class="form-control @error('mm_kndr') is-invalid @enderror" id="mm_kndr" name="mm_kndr" value="{{ old('mm_kndr') }}" required>
-                            @error('mm_kndr')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <div class="mb-3">
-                            <label for="jngka_wktu" class="form-label">Jangka Waktu</label>
-                            <input type="text" class="form-control @error('jngka_wktu') is-invalid @enderror" id="jngka_wktu" name="jngka_wktu" value="{{ old('jngka_wktu') }}" required>
-                            @error('jngka_wktu')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
+                        
                         <div class="mb-3">
                             <label for="harga" class="form-label">Harga</label>
                             <input type="number" class="form-control @error('harga') is-invalid @enderror" id="harga" name="harga" value="{{ old('harga') }}" required>
@@ -152,6 +170,27 @@
                             <label for="ttl_byr" class="form-label">Total Bayar</label>
                             <input type="number" class="form-control @error('ttl_byr') is-invalid @enderror" id="ttl_byr" name="ttl_byr" value="{{ old('ttl_byr') }}" required>
                             @error('ttl_byr')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="ktp" class="form-label">Upload KTP</label>
+                            <input type="file" class="form-control @error('ktp') is-invalid @enderror" id="file_ktp" name="file_ktp" required>
+                            @error('ktp')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="npwp" class="form-label">Upload NPWP</label>
+                            <input type="file" class="form-control @error('npwp') is-invalid @enderror" id="file_npwp" name="file_npwp" required>
+                            @error('npwp')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="kk" class="form-label">Upload KK</label>
+                            <input type="file" class="form-control @error('kk') is-invalid @enderror" id="file_kk" name="file_kk" required>
+                            @error('kk')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>

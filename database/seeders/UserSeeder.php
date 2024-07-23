@@ -22,12 +22,7 @@ class UserSeeder extends Seeder
             $ran = rand(100, 999);
 
             $email = fake()->unique()->safeEmail();
-            if ($ran > 500) {
-                $level = 'mahasiswa';
-
-            } else {
-                $level = 'dosen';
-            }
+            $level = 'customer';
             $ran2 = rand(100, 999);
             if ($ran > 500) {
                 $jk = 'L';
@@ -45,7 +40,7 @@ class UserSeeder extends Seeder
                     $level = 'adminUtama';
                 } else if ($i == 2) {
                     $email = 'wahyu@gmail.com';
-                    $level = 'wahyu';
+                    $level = 'analys';
                 }
                 $user = User::create([
                     'name' => $name,

@@ -21,18 +21,11 @@
                     @endif
                     <table class="table table-bordered">
                         <tbody>
+                             
                             <tr>
-                                <th>ID Pengajuan</th>
-                                <td>{{ $pengajuan->id_pengajuan }}</td>
-                            </tr>
-                            <tr>
-                                <th>ID Kendaraan</th>
-                                <td>{{ $pengajuan->id_kendaraan }}</td>
-                            </tr>
-                            <tr>
-                                <th>Tanggal Bunga</th>
-                                <td>{{ $pengajuan->tgl_bunga }}</td>
-                            </tr>
+                                <th>Kendaraan</th>
+                                <td>{{ $kendaraans->nama_kendaraan }}</td>
+                            </tr> 
                             <tr>
                                 <th>Tanggal Bayar</th>
                                 <td>{{ $pengajuan->tgl_bayar }}</td>
@@ -43,7 +36,7 @@
                             </tr>
                             <tr>
                                 <th>Umur</th>
-                                <td>{{ $pengajuan->umur }}</td>
+                                <td>{{ $pengajuan->umur }} Th</td>
                             </tr>
                             <tr>
                                 <th>Status Tempat Tinggal</th>
@@ -61,17 +54,17 @@
                                 <th>Status Kerja</th>
                                 <td>{{ $pengajuan->stts_kerja }}</td>
                             </tr>
-                            <tr>
+                            <!-- <tr>
                                 <th>Jenis Tahun Kendaraan</th>
                                 <td>{{ $pengajuan->jns_thn_kndr }}</td>
-                            </tr>
+                            </tr> -->
                             <tr>
                                 <th>Merek Kendaraan</th>
-                                <td>{{ $pengajuan->mm_kndr }}</td>
+                                <td>{{ $kendaraans->merek_kendaraan }}</td>
                             </tr>
                             <tr>
                                 <th>Jangka Waktu</th>
-                                <td>{{ $pengajuan->jngka_wktu }}</td>
+                                <td>{{ $bunga->jngka_wktu }} Bln</td>
                             </tr>
                             <tr>
                                 <th>Harga</th>
@@ -87,7 +80,24 @@
                             </tr>
                         </tbody>
                     </table>
+                    <div class="row">
+                    <div class="col-md-6">
+    <label for="file_ktp">KTP</label>
+    <img src="{{asset('storage/'.$pengajuan->file_ktp)}}" class="img-rounded" width="200" height="200" alt="KTP">
+</div>
+<div class="col-md-6">
+    <label for="file_kk">KK</label>
+    <img src="{{asset('storage/'.$pengajuan->file_kk)}}" class="img-rounded" width="200" height="200" alt="KK">
+</div>
+<div class="col-md-6">
+    <label for="file_npwp">NPWP</label>
+    <img src="{{asset('storage/'.$pengajuan->file_npwp)}}" class="img-rounded" width="200" height="200" alt="NPWP">
+</div>
 
+                        <!-- <div class="col-md-6"><img src="cinqueterre.jpg" class="img-rounded" alt="Cinque Terre"></div>
+                        <div class="col-md-6"><img src="cinqueterre.jpg" class="img-rounded" alt="Cinque Terre"></div>
+                        <div class="col-md-6"><img src="cinqueterre.jpg" class="img-rounded" alt="Cinque Terre"></div> -->
+                    </div>
                     <form action="{{ route('pengajuan.update', $pengajuan->id) }}" method="POST">
                         @csrf
                         @method('PUT')

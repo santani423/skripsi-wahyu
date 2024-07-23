@@ -25,7 +25,7 @@ class PengajuanController extends Controller
     {
         $pengajuans = Pengajuan::all();
         $kendaraans = Kendaraan::get();
-        if (Auth::user()->level != 'adminUtama') {
+        if (Auth::user()->level == 'customer') {
             $id = Auth::user()->id;
             $pengajuans = Pengajuan::where('user_id',$id)->get();
         }
@@ -48,26 +48,35 @@ class PengajuanController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'id_kendaraan' => 'required',
-            'user_id' => 'required',
-            'tgl_bunga' => 'required',
-            'tgl_bayar' => 'required|date',
-            'nama' => 'required|string|max:20',
-            'umur' => 'required',
-            'Stts_tmpt_tgl' => 'required|string|max:20',
-            'slik' => 'required|string|max:8',
-            'gaji' => 'required|integer',
-            'stts_kerja' => 'required|string|max:20',
-            'jns_thn_kndr' => 'required|string|max:8',
-            'mm_kndr' => 'required|string|max:20',
-            'jngka_wktu' => 'required|string|max:10',
-            'harga' => 'required|integer',
-            'byr_bln' => 'required|integer',
-            'ttl_byr' => 'required|integer',
-        ]);
+        // $request->validate([
+        //     'id_kendaraan' => 'required',
+        //     // 'user_id' => 'required',
+        //     'tgl_bunga' => 'required',
+        //     'tgl_bayar' => 'required|date',
+        //     'nama' => 'required|string|max:20',
+        //     'umur' => 'required',
+        //     'Stts_tmpt_tgl' => 'required|string|max:20',
+        //     'slik' => 'required|string|max:8',
+        //     'gaji' => 'required|integer',
+        //     'stts_kerja' => 'required|string|max:20',
+        //     'jns_thn_kndr' => 'required|string|max:8',
+        //     'mm_kndr' => 'required|string|max:20',
+        //     'jngka_wktu' => 'required|string|max:10',
+        //     'harga' => 'required|integer',
+        //     'byr_bln' => 'required|integer',
+        //     'ttl_byr' => 'required|integer',
+        // ]);
+        $ktpPath = $request->file('file_ktp')->store('uploads', 'public');
+    $npwpPath = $request->file('file_npwp')->store('uploads', 'public');
+    $kkPath = $request->file('file_kk')->store('uploads', 'public');
 
-        Pengajuan::create($request->all());
+    $pengajuanData = $request->all();
+    $pengajuanData['file_ktp'] = $ktpPath;
+    $pengajuanData['file_npwp'] = $npwpPath;
+    $pengajuanData['file_kk'] = $kkPath;
+
+    Pengajuan::create($pengajuanData);
+        // dd($pengajuanData);
 
         return redirect()->route('pengajuan.index')->with('success', 'Pengajuan created successfully.');
     }
@@ -77,7 +86,9 @@ class PengajuanController extends Controller
      */
     public function show(Pengajuan $pengajuan)
     {
-        return view('pages/pengajuan/show',compact('pengajuan'));
+        $kendaraans = Kendaraan::whereId($pengajuan->id_kendaraan)->first();
+        $bunga = Bunga::whereId($pengajuan->tgl_bunga)->first();
+        return view('pages/pengajuan/show',compact('pengajuan','kendaraans','bunga'));
     }
 
     /**
@@ -122,6 +133,7 @@ class PengajuanController extends Controller
         );
         // dd($data);
         $pengajuan->sts_pengajuan = $result['status'];
+        $pengajuan->slik = $data['slik'];
         $pengajuan->save();
 
         return back()->with('success', $result['message']);
