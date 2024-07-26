@@ -1,4 +1,4 @@
-<x-Layout.Master title="Dashboard">
+<x-Layout.Master title="Rule">
 
     @slot('breadcrumbRight')
     <div class="ms-auto">
