@@ -96,14 +96,14 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-                        
-                        <div class="mb-3">
+                        <input type="hidden" name="tgl_bayar" value="{{date('Y-m-d')}}">
+                        <!-- <div class="mb-3">
                             <label for="tgl_bayar" class="form-label">Tanggal Bayar</label>
                             <input type="date" class="form-control @error('tgl_bayar') is-invalid @enderror" id="tgl_bayar" name="tgl_bayar" value="{{ old('tgl_bayar') }}" required>
                             @error('tgl_bayar')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
-                        </div>
+                        </div> -->
                         <div class="mb-3">
                             <label for="nama" class="form-label">Nama</label>
                             <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" name="nama" value="{{ old('nama') }}" required>
@@ -113,7 +113,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="umur" class="form-label">Umur</label>
-                            <input type="text" class="form-control @error('umur') is-invalid @enderror" id="umur" name="umur" value="{{ old('umur') }}" required>
+                            <input type="number" class="form-control @error('umur') is-invalid @enderror" id="umur" name="umur" value="{{ old('umur') }}" required>
                             @error('umur')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
