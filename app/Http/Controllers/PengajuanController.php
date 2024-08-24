@@ -69,11 +69,15 @@ class PengajuanController extends Controller
         $ktpPath = $request->file('file_ktp')->store('uploads', 'public');
     $npwpPath = $request->file('file_npwp')->store('uploads', 'public');
     $kkPath = $request->file('file_kk')->store('uploads', 'public');
+    $kkPath = $request->file('file_slip_gaji')->store('uploads', 'public');
+    $kkPath = $request->file('file_rekening_korang')->store('uploads', 'public');
 
     $pengajuanData = $request->all();
     $pengajuanData['file_ktp'] = $ktpPath;
     $pengajuanData['file_npwp'] = $npwpPath;
     $pengajuanData['file_kk'] = $kkPath;
+    $pengajuanData['file_slip_gaji'] = $kkPath;
+    $pengajuanData['file_rekening_korang'] = $kkPath;
 
     Pengajuan::create($pengajuanData);
         // dd($pengajuanData);
