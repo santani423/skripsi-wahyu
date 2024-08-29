@@ -85,9 +85,9 @@
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="tgl_bunga" class="form-label">Bunga</label>
+                            <label for="tgl_bunga" class="form-label">Tenor</label>
                             <select name="tgl_bunga" id="tgl_bunga" class="form-control @error('tgl_bunga') is-invalid @enderror">
-                                <option value="">Pilih Bunga</option>
+                                <option value="">Pilih Tenor</option>
                                 @foreach($bunga as $kt)
                                 <option value="{{ $kt->id }}" data-bunga="{{ $kt->bunga_perbulan }}" {{ old('tgl_bunga') == $kt->id ? 'selected' : '' }}>{{ $kt->jangka_waktu }}</option>
                                 @endforeach
